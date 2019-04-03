@@ -46,21 +46,21 @@ Neste projeto estaremos desenvolvendo duas APIs para extração e manipulação 
 
 ### Intruções de Execução
 
-Step 1 - Criação da base de dados através do script SQL - disponível em: [Script_Query_SQL_Creation](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Project_Telemedicina/Python/Script_Query_SQL_Creation.sql)
+1. Criação da base de dados através do script SQL - disponível em: [Script_Query_SQL_Creation](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Project_Telemedicina/Python/Script_Query_SQL_Creation.sql)
 
-Step 2 - Os arquivos **"Pesquisa_URL e Pesquisa_Twitter"** deverão ser alterados com o nome do servidor SQL no qual o script acima foi executado, assim como mostra a imagem a seguir apontando o lugar exado da alteração. Exemplo disponível em: [Alterar_Nome_Servidor](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Project_Telemedicina/Alterar_Nome_Servidor.png)
+2. Os arquivos **"Pesquisa_URL e Pesquisa_Twitter"** deverão ser alterados com o nome do servidor SQL no qual o script acima foi executado, assim como mostra a imagem a seguir apontando o lugar exado da alteração. Exemplo disponível em: [Alterar_Nome_Servidor](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Project_Telemedicina/Alterar_Nome_Servidor.png)
 
 ##### API Web Screaping:
 
-Step 3 - Executável **"Pesquisa URL"** - disponível em: [Pesquisa_URL](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Python/Pesquisa_URL.py)
+3. Executável **"Pesquisa URL"** - disponível em: [Pesquisa_URL](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Python/Pesquisa_URL.py)
 
 ##### API Twitter:
 
-Step 4 - Caso o arquivo **"Credenciais Twitter"** não esteja criado no diretório, o mesmo pode ser criado a partir do executável **"Criar Credencias Twitter"** - disponível em: [Criar_Credenciais_Twitter](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Project_Telemedicina/Python/Criar_Credenciais_Twitter.py)
+4. Caso o arquivo **"Credenciais Twitter"** não esteja criado no diretório, o mesmo pode ser criado a partir do executável **"Criar Credencias Twitter"** - disponível em: [Criar_Credenciais_Twitter](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Project_Telemedicina/Python/Criar_Credenciais_Twitter.py)
 
-Step 6 - Arquivo .json com as credenciais de acesso a API do Twitter - disponível em: [Credenciais_Twitter](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Python/Credenciais_Twitter.json)
+5. Arquivo .json com as credenciais de acesso a API do Twitter - disponível em: [Credenciais_Twitter](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Python/Credenciais_Twitter.json)
 
-Step 5 - Executável **"Pesquisa Twitter"** - disponivel em: [Pesquisa_Twitter](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Project_Telemedicina/Python/Pesquisa_Twitter.py)
+6. Executável **"Pesquisa Twitter"** - disponivel em: [Pesquisa_Twitter](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Project_Telemedicina/Python/Pesquisa_Twitter.py)
 
 
 ### Módulos e Bibliotecas do Python Utilizadas no projeto
