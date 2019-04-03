@@ -1,21 +1,26 @@
-#!/usr/bin/env python
-# coding: utf-8
+# ----------------------------------------------------------------------------------------------------------
 
-# 1 - Leitura e Gravação dos dados no Banco SQL - Pesquisa Tweet:
+# Step 1 - Extração e Carga dos Dados - Telemedicina - Twitter API
 
-# In[255]:
+# Criado por: Bruno Scovoli Bruneli
+# Data Início: 31/03/2019
+# Data Término: 03/04/2019
 
+# Descrição: Nesta API realizaremos a consulta da palavra "Telemedicina" no Twitter e retornaremos os 100
+# primeiros registros mais recentes, armazenando em uma base de dados SQL Server o usário, data e 
+# hora da postagem e o conteúdo postado.
 
-# Imports:
+# ----------------------------------------------------------------------------------------------------------
+
+# Importação dos Módulos e Bibliotecas
 from twython import Twython
 import json
 import pandas as pd
 import time
 import pyodbc 
 
-
-# In[256]:
-
+# Imprime Inicio do Step 1:
+print('\nInício - Step 1 - Extração e Carga dos Dados')
 
 # Conexão com o Banco de Dados - SQL Server:
 conn = pyodbc.connect(
@@ -37,73 +42,61 @@ cursor.execute(sql_command)
 # Criamos um comando de Insert dos dados:
 sql_command = ("INSERT INTO dbo.TB_TWEETS ([USUARIO],[DATA],[HORARIO],[POSTAGEM]) VALUES (?,?,?,?)")
 
-
-# In[257]:
-
-
-# Extraindo as credenciais de acesso de um arquivo .json:
-with open("twitter_credentials.json", "r") as file:  
+# Extraindo as credenciais de acesso do Twitter de um arquivo .json:
+with open("Credenciais_Twitter.json", "r") as file:  
     creds = json.load(file)
-
-
-# In[258]:
-
 
 # Instanciando um objeto twython:
 python_tweets = Twython(creds['CONSUMER_KEY'], creds['CONSUMER_SECRET'])
 
-
-# In[259]:
-
+# ----------------------------------------------------------------------------------------------------------
+# Descrição: Lógica para retornar os Tweets que possuem o termo "telemedicina". Extraindo os dados e através
+# de um módulo instanciado do Twitter onde podemos realizar requisições na aplicação e retornar os dados
+# desejados, como: usuário, data e hora da postagem e o conteúdo postado.
 
 # Criando query com os parametros a serem passados no método:
 query = {'q': 'telemedicina','count':100,'lang': 'pt'}
 
-
-# In[260]:
-
-
 # Dicionário para armazenar os tweets:
 dict_twitter = {'usuario': [], 'data': [], 'horario':[], 'postagem': []}
 
-
-# In[261]:
-
-
 lista_twitter = []
+try:
+    # Pesquisando o termo "telemedicina" e retornando os 1000 tweets: 
+    for status in python_tweets.search(**query)['statuses']:  
+        usuario = (status['user']['screen_name'])
+        data = (time.strftime('%Y-%m-%d', time.strptime(status['created_at'],'%a %b %d %H:%M:%S +0000 %Y')))
+        horario = (time.strftime('%H:%M:%S', time.strptime(status['created_at'],'%a %b %d %H:%M:%S +0000 %Y')))
+        postagem = (status['text'])
 
+        # Gravamos os dados de retorno em uma lista
+        values = [usuario, data, horario, postagem]
+        lista_twitter.append(values)
 
-# In[262]:
-
-
-# Pesquisando o termo "telemedicina" e retornando os 1000 tweets: 
-for status in python_tweets.search(**query)['statuses']:  
-    usuario = (status['user']['screen_name'])
-    data = (time.strftime('%Y-%m-%d', time.strptime(status['created_at'],'%a %b %d %H:%M:%S +0000 %Y')))
-    horario = (time.strftime('%H:%M:%S', time.strptime(status['created_at'],'%a %b %d %H:%M:%S +0000 %Y')))
-    postagem = (status['text'])
-    
-    values = [usuario, data, horario, postagem]
-    lista_twitter.append(values)
-    
-    cursor.execute(sql_command, usuario, data, horario, postagem)
+        # Insere os dados no Banco SQL através do comando setado anteriormente, passando os valores a serem
+        # inseridos na tabela:
+        cursor.execute(sql_command, usuario, data, horario, postagem)
+except:
+    # Caso ocorra algum erro no processo de leitura dos Tweets:
+    print('\nExcessão: Erro ao realizar busca de Tweets.')
 
 # Estruturar o dado retornado nos tweets armazenando em um Dataframe:
-df = pd.DataFrame(dict_twitter)  
-df = df.sort_values(['data','horario'], ascending=False)   
-# In[263]:
+#df = pd.DataFrame(dict_twitter)  
+#df = df.sort_values(['data','horario'], ascending=False)   
 
+# Mensagem de Processo Completo:
+print('\nDados Inseridos com Sucesso...')
 
 # Commit dos dados incluídos no banco:
 conn.commit()
 
+# ----------------------------------------------------------------------------------------------------------
+# Step 2 - Leitura e Exibição dos dados do Banco SQL - Pesquisa Tweet:
 
-# -------
+# Descrição: Realizaremos a leitura dos dados gravados na tabela TB_TWEETS para análise e extração.
 
-# 2 - Leitura e Exibição dos dados do Banco SQL - Pesquisa Tweet:
-
-# In[264]:
-
+# Imprime Inicio do Step 2:
+print('\nInício - Step 2 - Leitura e Exibição dos Dados')
 
 # Comando SQL para extrair os dados dos usuários com mais tweets:
 sql_command_link = """
@@ -115,34 +108,18 @@ sql_command_link = """
     ORDER BY QTD_TWEET DESC
 """
 
-
-# In[265]:
-
-
 # Executa comando SQL_Link:
 return_query_link = cursor.execute(sql_command_link).fetchall()
-
-
-# In[266]:
-
 
 # Converter lista de registros em um Dataframe:
 dfQtdeTweet = pd.DataFrame.from_records(return_query_link,columns=['Quantidade_Tweet','Usuario'])
 
+# Imprime lista de usuários com maior número de postagens com o termo "telemedicina":
+print('\nLista dos *usuários* com maior número de postagens:')
+print(dfQtdeTweet.head(10))
 
-# In[267]:
-
-
-# Imprime o dataFrame referente aos dados de Domínio:
-print(dfQtdeTweet.head(20))
-
-
-# -------
-
-# In[268]:
-
-
-# Comando SQL para extrair os dados dos usuários com mais tweets:
+# ----------------------------------------------------------------------------------------------------------
+# Comando SQL para extrair os dados do dia da semana com mais tweets:
 sql_command_link = """
 SELECT 
     COUNT(*) AS QTD_TWEET,
@@ -169,34 +146,18 @@ GROUP BY
 ORDER BY QTD_TWEET DESC
 """
 
-
-# In[269]:
-
-
 # Executa comando SQL_Link:
 return_query_link = cursor.execute(sql_command_link).fetchall()
-
-
-# In[270]:
-
 
 # Converter lista de registros em um Dataframe:
 dfDiaSemana = pd.DataFrame.from_records(return_query_link,columns=['Quantidade_Tweet','Dia_Semana'])
 
-
-# In[271]:
-
-
-# Imprime o dataFrame:
+# Imprime a quantidade de Tweets durante os dias da semana:
+print('\nLista dos *dias* com maior número de postagens:')
 print(dfDiaSemana)
 
-
-# -------
-
-# In[272]:
-
-
-# Comando SQL para extrair os dados dos usuários com mais tweets:
+# ----------------------------------------------------------------------------------------------------------
+# Comando SQL para extrair os dados das horas do dia com mais tweets:
 sql_command_link = """
     SELECT 
         COUNT(*) AS QTD_TWEET,
@@ -206,37 +167,17 @@ sql_command_link = """
     ORDER BY QTD_TWEET DESC
 """
 
-
-# In[273]:
-
-
 # Executa comando SQL_Link:
 return_query_link = cursor.execute(sql_command_link).fetchall()
-
-
-# In[274]:
-
 
 # Converter lista de registros em um Dataframe:
 dfHora = pd.DataFrame.from_records(return_query_link,columns=['Quantidade_Tweet','Hora_Dia'])
 
-
-# In[275]:
-
-
-# Imprime o dataFrame:
+# Imprime a quantidade de Tweets referente as horas do dia:
+print('\nLista das *horas* com maior número de postagens:')
 print(dfHora)
 
-
-# In[276]:
-
-
+# ----------------------------------------------------------------------------------------------
+# Fecha conexão com o banco de dados:
 cursor.close()
 conn.close()
-
-
-# In[ ]:
-
-
-
-
