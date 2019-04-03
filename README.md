@@ -29,7 +29,7 @@ Neste projeto estaremos desenvolvendo duas APIs para extração e manipulação 
 
 Step 1 - Criação da base de dados através do script SQL - disponível em:
 
-Step 2 - Alterar o "nome do servidor" dentro dos arquivos .py que serão executados. Exemplo disponível em:
+Step 2 - Alterar o "nome do servidor" dentro dos arquivos .py que serão executados. Exemplo disponível em: https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Alterar_Nome_Servidor.png
 
 ##### API Web Screaping:
 
