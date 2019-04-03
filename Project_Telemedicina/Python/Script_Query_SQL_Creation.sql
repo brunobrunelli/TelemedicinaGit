@@ -1,6 +1,6 @@
 
 -------------------------------------------------------------------
--- 	Step 1 : Script CriaÁ„o da Base de Dados SQL  
+-- Step 1 : Script Cria√ß√£o da Base de Dados SQL  
 USE [master]
 GO
 
@@ -8,7 +8,7 @@ CREATE DATABASE DB_TELEMEDICINA
 GO
 
 -------------------------------------------------------------------
--- Step 2 : CriaÁ„o de Usu·rio e permissıes de acesso ao Banco
+-- Step 2 : Cria√ß√£o de Usu√°rio e permiss√µes de acesso ao Banco
 
 CREATE LOGIN [adm] WITH 
 	PASSWORD='admin', 
@@ -30,7 +30,7 @@ ALTER SERVER ROLE [bulkadmin] ADD MEMBER [adm]
 GO
 
 -------------------------------------------------------------------
--- Step 3 : CriaÁ„o das Tabelas
+-- Step 3 : Cria√ß√£o das Tabelas
 
 USE [DB_TELEMEDICINA]
 GO
@@ -45,7 +45,7 @@ CREATE TABLE [dbo].[TB_URL_TELEMEDICINA](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
--- Tabela para receber os dados extraÌdos dos Tweets: 
+-- Tabela para receber os dados extra√≠dos dos Tweets: 
 CREATE TABLE [dbo].[TB_TWEETS](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[USUARIO] [varchar](max) NULL,
