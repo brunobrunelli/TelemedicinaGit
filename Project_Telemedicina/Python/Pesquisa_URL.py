@@ -61,7 +61,7 @@ index=0
 print('\nInicia processo de Leitura/Gravação dos dados...')
 
 # Início do loop, percorrendo as 100 primeiras páginas:
-for url in search(query, stop=10):
+for url in search(query, stop=100):
     texto_http = []
     my_list_http = []
 
