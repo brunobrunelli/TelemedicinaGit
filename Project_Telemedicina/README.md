@@ -89,6 +89,3 @@ Neste projeto estaremos desenvolvendo duas APIs para extração e manipulação 
 
 `pip install twython - https://pypi.org/project/twython/`
 
-
-
-
