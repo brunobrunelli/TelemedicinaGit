@@ -38,7 +38,7 @@ Neste projeto estaremos desenvolvendo duas APIs para extração e manipulação 
 `pip freeze > requirements.txt`
 
 - Desativando o ambiente virtualenv na pasta "Project_Telemedicina":
-`deactuvate`
+`deactivate`
 
 - Para instalar as dependências do projeto no ambiente isolado, basta executar:
 `pip install -r requirements.txt`
