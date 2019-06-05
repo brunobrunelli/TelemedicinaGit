@@ -52,7 +52,7 @@ Neste projeto estaremos desenvolvendo duas APIs para extração e manipulação 
 
 ##### API Web Screaping:
 
-3. Executável **"Pesquisa URL"** - disponível em: [Pesquisa_URL](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Python/Pesquisa_URL.py)
+3. Executável **"Pesquisa URL"** - disponível em: [Pesquisa_URL](https://github.com/brunobrunelli/TelemedicinaGit/blob/master/Project_Telemedicina/Python/Pesquisa_URL.py)
 
 ##### API Twitter:
 
