@@ -27,7 +27,7 @@ regex==2019.3.12
 requests==2.21.0
 requests-file==1.4.3
 requests-oauthlib==1.2.0
-rsa==4.0
+rsa==4.1
 search-google==1.2.1
 six==1.12.0
 soupsieve==1.9
